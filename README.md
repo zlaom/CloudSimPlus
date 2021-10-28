@@ -85,7 +85,7 @@
   _cloudbus/cloudsim/examples/container/ScalabilityAndLoadBalanceTest.java_
 
 <center>
-    <img style="zoom:100%;"  src="./README/Variables.PNG">
+    <img style="zoom:100%;"  src="README\Variables.PNG">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">图2：测试用例中的主要参数</div>
 </center>
