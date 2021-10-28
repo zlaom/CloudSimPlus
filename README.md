@@ -82,7 +82,7 @@
 
 图 2：测试用例中的主要参数
 
-![测试用例中策略相关超参](README\Variables.PNG)
+![测试用例中策略相关超参](README/Variables.PNG)
 
 图 2：测试用例中策略相关超参
 
