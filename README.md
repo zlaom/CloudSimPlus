@@ -24,11 +24,8 @@
 
 - 连接绑定的请求在 UserSideDatacenter 中 processCloudletBinding()方法中实现，首先在当前 datacenter 中筛选出可选的 host，将可选 host 列表按照 AvailableMIPS 从大到小排序，使用包含**最大 AvailableMIPS**的 host 作为连接的绑定的位置。
 
-<center>
-    <img style="zoom:60%;"  src="./README/framework.png">
-    <br>
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">图1：实体间通信思路</div>
-</center>
+![实体间通信思路](README/framework.png)
+图 1：实体间通信思路
 
 #### 2、 函数说明
 
@@ -84,16 +81,10 @@
 
   _cloudbus/cloudsim/examples/container/ScalabilityAndLoadBalanceTest.java_
 
-<center>
-    <img style="zoom:100%;"  src="README\Variables.PNG">
-    <br>
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">图2：测试用例中的主要参数</div>
-</center>
+![测试用例中策略相关超参](README\Variables.PNG)
+图 2：测试用例中的主要参数
 
-<center>
-    <img style="zoom:100%;"  src="./README/HyperParameter.PNG">
-    <br>
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">图2：测试用例中策略相关超参</div>
-</center>
+![测试用例中策略相关超参](README/HyperParameter.PNG)
+图 2：测试用例中策略相关超参
 
 - 输入输出均已可视化，负载统计分布周期性打印到日志中。
