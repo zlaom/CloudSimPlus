@@ -24,8 +24,9 @@
 
 - 连接绑定的请求在 UserSideDatacenter 中 processCloudletBinding()方法中实现，首先在当前 datacenter 中筛选出可选的 host，将可选 host 列表按照 AvailableMIPS 从大到小排序，使用包含**最大 AvailableMIPS**的 host 作为连接的绑定的位置。
 
-![实体间通信思路](README/framework.png)
 图 1：实体间通信思路
+
+![实体间通信思路](README/framework.png)
 
 #### 2、 函数说明
 
@@ -75,16 +76,16 @@
 
 #### 3、 示例代码
 
-- 位置：
-
-  _cloudsim/modules/cloudsim-examples/src/main/java/org/_
+- 位置：_cloudsim/modules/cloudsim-examples/src/main/java/org/_
 
   _cloudbus/cloudsim/examples/container/ScalabilityAndLoadBalanceTest.java_
 
-![测试用例中策略相关超参](README\Variables.PNG)
 图 2：测试用例中的主要参数
 
-![测试用例中策略相关超参](README/HyperParameter.PNG)
+![测试用例中策略相关超参](README\Variables.PNG)
+
 图 2：测试用例中策略相关超参
+
+![测试用例中策略相关超参](README/HyperParameter.PNG)
 
 - 输入输出均已可视化，负载统计分布周期性打印到日志中。
