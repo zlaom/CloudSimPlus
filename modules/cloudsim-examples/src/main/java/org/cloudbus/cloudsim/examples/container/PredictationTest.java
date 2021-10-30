@@ -159,13 +159,13 @@ public class PredictationTest {
 
 
             //firstly used for generate simulation data.
-//            GenerateSimulationData(ex, 100);
+            GenerateSimulationData(ex, 100);
             ReadDataFromFiles();
 
 
             //whether to apply our strategy.
             CloudSim.initiative = true;
-            CloudSim.LoadBalanceStrategy = 1;  //   0是本系统方案的负载均衡的  1是无负载均衡  大于1是最小连接
+            CloudSim.LoadBalanceStrategy = 2;  //   0是本系统方案的负载均衡的  1是无负载均衡  大于1是最小连接
             CloudSim.startSimulation();
             //calculate the total cost.
             List<Container> res = UserSideDatacenter.AllContainers;

@@ -2,7 +2,18 @@
 
 本项目旨在 CloudSim 的基础上实现容器的扩容缩容，各层级的负载均衡，以制定用户侧长连接绑定延迟和服务商侧资源消耗的合理权衡方案。
 
-#### 1、框架主体修改思路
+## 运行方式
+
+执行文件：[PredictationTest.java](https://github.com/icloud-ecnu/Cloudsim/blob/master/modules/cloudsim-examples/src/main/java/org/cloudbus/cloudsim/examples/container/PredictationTest.java)<br>
+Path: _Cloudsim\modules\cloudsim-examples\src\main\java\org\cloudbus\cloudsim\examples\container\PredictationTest.java_
+
+note:
+
+1. 首次执行需要将[Line 162](https://github.com/icloud-ecnu/Cloudsim/blob/7820db01348075bdf762a6b7617bccf40cf63374/modules/cloudsim-examples/src/main/java/org/cloudbus/cloudsim/examples/container/PredictationTest.java#L162) 注释关掉，因为该行是生成输入数据的函数。
+2. 取消注释并执行过后会产生将本次模拟的输入数据以 txt 方式输出便于后续对比分析，后续可以自行选择是否重新生成输入数据。
+3. 可视化框中的结果一栏，balance factor 对比需要三种 load balance strategy 均运行一遍之后才可以产生，即将[Line 168](https://github.com/icloud-ecnu/Cloudsim/blob/7820db01348075bdf762a6b7617bccf40cf63374/modules/cloudsim-examples/src/main/java/org/cloudbus/cloudsim/examples/container/PredictationTest.java#L168)的*CloudSim.LoadBalanceStrategy*分别赋值为 “0”,“1”,“2”运行一遍。注意：若要对比，三组实验要采用统一输入数据。
+
+## 1、框架主体修改思路
 
 明确实现目标：
 
@@ -28,57 +39,57 @@
 
 ![实体间通信思路](README/framework.png)
 
-#### 2、 函数说明
+## 2、 函数说明
 
-- ```java
-  class UserSideBroker extends ContainerDatacenterBroker{}
+```java
+ class UserSideBroker extends ContainerDatacenterBroker{}
+```
+
+````java
+  submitCloudlets() //在连接未指定容器时，发送containerCloudSimTags.CLOUDLET_BINDING，延迟是clt.getExecStartTime()
   ```
 
-  - ```java
-    submitCloudlets() //在连接未指定容器时，发送containerCloudSimTags.CLOUDLET_BINDING，延迟是clt.getExecStartTime()
-    ```
-
-  - ```java
-    processDatacenterStatusUpdate(SimEvent ev)//在SynchronizationCount数量达到数据中心数量时，同步更新数据
-    ```
-
-  - ```java
-    ProcessContainerScalabilitySync(SimEvent ev)//检查是否达到给定的时间间隔，如果未达到就等待；达到了就发送ack请求
-    ```
-
-  - ```java
-    ProcessContainerScalabilityACK(SimEvent ev)//扩容的具体实现过程
-    ```
-
-  - ```java
-    processCloudletReturn(SimEvent ev)//在连接完成之前实现自动缩容
-    ```
-
-- ```java
-  class UserSideDatacenter extends PowerContainerDatacenter{}
+```java
+  processDatacenterStatusUpdate(SimEvent ev)//在SynchronizationCount数量达到数据中心数量时，同步更新数据
   ```
 
-  - ```java
-    RemoveContainerFromDatacenter(SimEvent ev)//缩容时调用该函数对容器进行清除
-    ```
+-```java
+  ProcessContainerScalabilitySync(SimEvent ev)//检查是否达到给定的时间间隔，如果未达到就等待；达到了就发送ack请求
+  ```
 
-  - ```java
-    processCloudletBinding(SimEvent ev)//连接绑定容器的选取过程
-    ```
+ ```java
+  ProcessContainerScalabilityACK(SimEvent ev)//扩容的具体实现过程
+  ```
 
-  - ```java
-    GetLatestDatacenterInfoAndSendBack(SimEvent ev)//收到broker发送的同步探针后收集该数据中心数据整理并发送给broker
-    ```
+```java
+  processCloudletReturn(SimEvent ev)//在连接完成之前实现自动缩容
+````
 
-  - ```java
-    ContainerScalabilityCheck(SimEvent ev)//实现检查时间间隔的桥梁，多次触发。
-    ```
+```java
+class UserSideDatacenter extends PowerContainerDatacenter{}
+```
 
-#### 3、 示例代码
+```java
+   RemoveContainerFromDatacenter(SimEvent ev)//缩容时调用该函数对容器进行清除
+```
 
-- 位置：_cloudsim/modules/cloudsim-examples/src/main/java/org/_
+```java
+   processCloudletBinding(SimEvent ev)//连接绑定容器的选取过程
+```
 
-  _cloudbus/cloudsim/examples/container/ScalabilityAndLoadBalanceTest.java_
+```java
+   GetLatestDatacenterInfoAndSendBack(SimEvent ev)//收到broker发送的同步探针后收集该数据中心数据整理并发送给broker
+```
+
+```java
+   ContainerScalabilityCheck(SimEvent ev)//实现检查时间间隔的桥梁，多次触发。
+```
+
+## 3、 示例代码
+
+位置：_cloudsim/modules/cloudsim-examples/src/main/java/org/_
+
+_cloudbus/cloudsim/examples/container/ScalabilityAndLoadBalanceTest.java_
 
 图 2：测试用例中的主要参数
 
@@ -88,4 +99,8 @@
 
 ![测试用例中策略相关超参](README/HyperParameter.PNG)
 
-- 输入输出均已可视化，负载统计分布周期性打印到日志中。
+输入输出均已可视化，负载统计分布周期性打印到日志中。
+
+```
+
+```
